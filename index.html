@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GoDiet — Персональная Диетная Программа</title>
+  <meta name="description" content="Заполните опросник GoDiet и получите персональную диетную программу с доставкой на дом. Здоровое питание, смузи и комплексные планы питания." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <img src="hero.jpg" alt="Healthy food background" class="hero-img" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <div class="logo-badge">
+        <span class="logo-icon">🥗</span>
+        <span class="logo-text">GoDiet</span>
+      </div>
+      <h1 class="hero-title">Персональная<br /><span class="gradient-text">Диетная Программа</span></h1>
+      <p class="hero-subtitle">Заполните опросник и получите персональный план питания с доставкой прямо к вашей двери</p>
+      <div class="hero-features">
+        <div class="feature-pill"><span>✅</span> Индивидуальный подход</div>
+        <div class="feature-pill"><span>🚚</span> Доставка на дом</div>
+        <div class="feature-pill"><span>⚡</span> Быстрый старт</div>
+      </div>
+      <button class="btn-primary" id="startBtn" onclick="startSurvey()">
+        Начать Опросник
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+    <div class="scroll-hint">↓ Прокрутите вниз</div>
+  </section>
+
+  <!-- ========== SURVEY SECTION ========== -->
+  <section class="survey-section" id="surveySection" style="display:none;">
+    <div class="survey-container">
+
+      <!-- Progress Bar -->
+      <div class="progress-wrapper">
+        <div class="progress-header">
+          <div class="logo-small">🥗 GoDiet</div>
+          <span class="progress-label" id="progressLabel">Шаг 1 из 5</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar" id="progressBar" style="width: 20%"></div>
+        </div>
+        <div class="step-indicators">
+          <div class="step-dot active" id="dot-1" title="Данные пользователя">👤</div>
+          <div class="step-dot" id="dot-2" title="Данные для диеты">⚖️</div>
+          <div class="step-dot" id="dot-3" title="Выбор пакета">📦</div>
+          <div class="step-dot" id="dot-4" title="Доставка">🚚</div>
+          <div class="step-dot" id="dot-5" title="Заказ">✅</div>
+        </div>
+      </div>
+
+      <!-- ===== STEP 1: User Data ===== -->
+      <div class="step-card active" id="step-1">
+        <div class="step-icon-large">👤</div>
+        <h2 class="step-title">Данные Пользователя</h2>
+        <p class="step-desc">Расскажите немного о себе</p>
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="fullName">ФИО <span class="required">*</span></label>
+            <input type="text" id="fullName" name="fullName" placeholder="Ad Soyad (məs. Əli Məmmədov)" required />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Номер телефона <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+994 50 000 00 00" required />
+          </div>
+
+          <div class="form-group">
+            <label for="location">Место проживания <span class="required">*</span></label>
+            <input type="text" id="location" name="location" placeholder="Bakı, Nəsimi rayonu" required />
+          </div>
+
+          <div class="form-group">
+            <label>Пол <span class="required">*</span></label>
+            <div class="radio-group">
+              <label class="radio-card" id="genderMaleLabel">
+                <input type="radio" name="gender" value="Мужской" id="genderMale" />
+                <span class="radio-icon">♂️</span>
+                <span>Мужской</span>
+              </label>
+              <label class="radio-card" id="genderFemaleLabel">
+                <input type="radio" name="gender" value="Женский" id="genderFemale" />
+                <span class="radio-icon">♀️</span>
+                <span>Женский</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="age">Возраст <span class="required">*</span></label>
+            <div class="number-input-wrapper">
+              <input type="number" id="age" name="age" placeholder="25" min="10" max="100" required />
+              <span class="unit">лет</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <div></div>
+          <button class="btn-next" onclick="nextStep(1)">Далее <span>→</span></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 2: Diet Data ===== -->
+      <div class="step-card" id="step-2">
+        <div class="step-icon-large">⚖️</div>
+        <h2 class="step-title">Данные для Диеты</h2>
+        <p class="step-desc">Помогите нам подобрать идеальную программу</p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="weight">Текущий вес <span class="required">*</span></label>
+            <div class="number-input-wrapper">
+              <input type="number" id="weight" name="weight" placeholder="70" min="30" max="300" required />
+              <span class="unit">кг</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="height">Рост <span class="required">*</span></label>
+            <div class="number-input-wrapper">
+              <input type="number" id="height" name="height" placeholder="170" min="100" max="250" required />
+              <span class="unit">см</span>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Желаемый результат <span class="required">*</span></label>
+            <div class="goal-cards">
+              <label class="goal-card" id="goalCard1">
+                <input type="radio" name="goal" value="Похудение" id="goal1" />
+                <span class="goal-emoji">🔥</span>
+                <span class="goal-title">Похудение</span>
+                <span class="goal-desc">Снижение веса</span>
+              </label>
+              <label class="goal-card" id="goalCard2">
+                <input type="radio" name="goal" value="Поддержание Веса" id="goal2" />
+                <span class="goal-emoji">⚖️</span>
+                <span class="goal-title">Поддержание Веса</span>
+                <span class="goal-desc">Сохранить форму</span>
+              </label>
+              <label class="goal-card" id="goalCard3">
+                <input type="radio" name="goal" value="Набор Массы" id="goal3" />
+                <span class="goal-emoji">💪</span>
+                <span class="goal-title">Набор Массы</span>
+                <span class="goal-desc">Рост мышц</span>
+              </label>
+              <label class="goal-card" id="goalCard4">
+                <input type="radio" name="goal" value="Здоровое Питание" id="goal4" />
+                <span class="goal-emoji">🥗</span>
+                <span class="goal-title">Здоровое Питание</span>
+                <span class="goal-desc">Правильный рацион</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="duration">Желаемый срок достижения цели</label>
+            <select id="duration" name="duration">
+              <option value="">— Выберите срок —</option>
+              <option value="1 месяц">1 месяц</option>
+              <option value="2-3 месяца">2–3 месяца</option>
+              <option value="3-6 месяцев">3–6 месяцев</option>
+              <option value="6-12 месяцев">6–12 месяцев</option>
+              <option value="Более года">Более года</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- BMI Display -->
+        <div class="bmi-widget" id="bmiWidget" style="display:none;">
+          <div class="bmi-label">Ваш ИМТ</div>
+          <div class="bmi-value" id="bmiValue">—</div>
+          <div class="bmi-status" id="bmiStatus"></div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(2)"><span>←</span> Назад</button>
+          <button class="btn-next" onclick="nextStep(2)">Далее <span>→</span></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 3: Package Selection ===== -->
+      <div class="step-card" id="step-3">
+        <div class="step-icon-large">📦</div>
+        <h2 class="step-title">Выбор Пакета</h2>
+        <p class="step-desc">Выберите подходящий вариант питания</p>
+
+        <div class="form-grid">
+          <!-- Package Type -->
+          <div class="form-group full-width">
+            <label>Тип пакета <span class="required">*</span></label>
+            <div class="package-cards">
+              <label class="package-card" id="pkgCard1">
+                <input type="radio" name="package" value="Пакеты с едой" id="pkg1" />
+                <div class="pkg-icon">🍱</div>
+                <div class="pkg-name">Пакеты с едой</div>
+                <div class="pkg-desc">Готовые приёмы пищи</div>
+              </label>
+              <label class="package-card" id="pkgCard2">
+                <input type="radio" name="package" value="Комбинированный пакет" id="pkg2" />
+                <div class="pkg-icon">🥗🥤</div>
+                <div class="pkg-name">Комбинированный</div>
+                <div class="pkg-desc">Еда + смузи</div>
+              </label>
+              <label class="package-card" id="pkgCard3">
+                <input type="radio" name="package" value="Пакеты смузи" id="pkg3" />
+                <div class="pkg-icon">🥤</div>
+                <div class="pkg-name">Пакеты смузи</div>
+                <div class="pkg-desc">Только смузи</div>
+              </label>
+              <label class="package-card" id="pkgCard4">
+                <input type="radio" name="package" value="Вегетарианский пакет" id="pkg4" />
+                <div class="pkg-icon">🌱</div>
+                <div class="pkg-name">Вегетарианский</div>
+                <div class="pkg-desc">Без мяса и рыбы</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Preferences -->
+          <div class="form-group full-width">
+            <label>Предпочтения в еде</label>
+            <div class="checkbox-grid">
+              <label class="checkbox-card" id="prefMeat">
+                <input type="checkbox" name="preferences" value="Мясо" id="pref1" />
+                <span class="cb-icon">🥩</span>
+                <span>Мясо</span>
+                <span class="cb-check">✓</span>
+              </label>
+              <label class="checkbox-card" id="prefChicken">
+                <input type="checkbox" name="preferences" value="Курица" id="pref2" />
+                <span class="cb-icon">🍗</span>
+                <span>Курица</span>
+                <span class="cb-check">✓</span>
+              </label>
+              <label class="checkbox-card" id="prefFish">
+                <input type="checkbox" name="preferences" value="Рыба" id="pref3" />
+                <span class="cb-icon">🐟</span>
+                <span>Рыба</span>
+                <span class="cb-check">✓</span>
+              </label>
+              <label class="checkbox-card" id="prefVeg">
+                <input type="checkbox" name="preferences" value="Овощи" id="pref4" />
+                <span class="cb-icon">🥦</span>
+                <span>Овощи</span>
+                <span class="cb-check">✓</span>
+              </label>
+              <label class="checkbox-card" id="prefFruit">
+                <input type="checkbox" name="preferences" value="Фрукты" id="pref5" />
+                <span class="cb-icon">🍎</span>
+                <span>Фрукты</span>
+                <span class="cb-check">✓</span>
+              </label>
+              <label class="checkbox-card" id="prefDairy">
+                <input type="checkbox" name="preferences" value="Молочные продукты" id="pref6" />
+                <span class="cb-icon">🥛</span>
+                <span>Молочные</span>
+                <span class="cb-check">✓</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Disliked Foods -->
+          <div class="form-group full-width">
+            <label for="disliked">Нелюбимые продукты</label>
+            <textarea id="disliked" name="disliked" placeholder="Перечислите продукты, которые вам не нравятся..." rows="3"></textarea>
+          </div>
+
+          <!-- Allergens -->
+          <div class="form-group full-width">
+            <label for="allergens">Аллергены</label>
+            <textarea id="allergens" name="allergens" placeholder="Укажите аллергены (орехи, глютен, лактоза и т.д.)..." rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(3)"><span>←</span> Назад</button>
+          <button class="btn-next" onclick="nextStep(3)">Далее <span>→</span></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 4: Delivery ===== -->
+      <div class="step-card" id="step-4">
+        <div class="step-icon-large">🚚</div>
+        <h2 class="step-title">Доставка</h2>
+        <p class="step-desc">Укажите детали доставки</p>
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label for="deliveryAddress">Адрес доставки <span class="required">*</span></label>
+            <input type="text" id="deliveryAddress" name="deliveryAddress" placeholder="Улица, дом, квартира" required />
+          </div>
+
+          <div class="form-group full-width">
+            <label for="zone">Район доставки <span class="required">*</span></label>
+            <div class="district-input-wrapper">
+              <span class="district-icon">📍</span>
+              <input type="text" id="zone" name="zone" placeholder="məs. Nəsimi, Nizami, Səbail, Binəqədi..." required />
+            </div>
+            <span class="field-hint">Bakı daxilindəki rayonunuzu yazın — çatdırılma vaxtı operatorumuz tərəfindən təyin ediləcək</span>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="deliveryNote">Комментарий к доставке</label>
+            <textarea id="deliveryNote" name="deliveryNote" placeholder="Код домофона, этаж, особые пожелания..." rows="2"></textarea>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(4)"><span>←</span> Назад</button>
+          <button class="btn-next" onclick="nextStep(4)">Далее <span>→</span></button>
+        </div>
+      </div>
+
+      <!-- ===== STEP 5: Order ===== -->
+      <div class="step-card" id="step-5">
+        <div class="step-icon-large">✅</div>
+        <h2 class="step-title">Оформление Заказа</h2>
+        <p class="step-desc">Последний шаг — выберите срок и способ оплаты</p>
+
+        <div class="form-grid">
+          <!-- Duration -->
+          <div class="form-group full-width">
+            <label>Продолжительность программы <span class="required">*</span></label>
+            <div class="duration-cards">
+              <label class="duration-card" id="durCard7">
+                <input type="radio" name="orderDuration" value="7 дней" id="dur7" />
+                <div class="dur-days">7</div>
+                <div class="dur-label">дней</div>
+                <div class="dur-badge">Старт</div>
+              </label>
+              <label class="duration-card featured" id="durCard14">
+                <input type="radio" name="orderDuration" value="14 дней" id="dur14" />
+                <div class="dur-badge-top">Популярный</div>
+                <div class="dur-days">14</div>
+                <div class="dur-label">дней</div>
+                <div class="dur-badge">Результат</div>
+              </label>
+              <label class="duration-card" id="durCard30">
+                <input type="radio" name="orderDuration" value="30 дней" id="dur30" />
+                <div class="dur-days">30</div>
+                <div class="dur-label">дней</div>
+                <div class="dur-badge">Трансформация</div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div class="form-group full-width">
+            <label>Способ оплаты <span class="required">*</span></label>
+            <div class="payment-cards">
+              <label class="payment-card" id="payCard1">
+                <input type="radio" name="payment" value="Наличные при получении" id="pay1" />
+                <span class="pay-icon">💵</span>
+                <span class="pay-name">Наличные</span>
+                <span class="pay-desc">При получении</span>
+              </label>
+              <label class="payment-card" id="payCard2">
+                <input type="radio" name="payment" value="Банковская карта" id="pay2" />
+                <span class="pay-icon">💳</span>
+                <span class="pay-name">Банковская карта</span>
+                <span class="pay-desc">Онлайн или при получении</span>
+              </label>
+              <label class="payment-card" id="payCard3">
+                <input type="radio" name="payment" value="Перевод на карту" id="pay3" />
+                <span class="pay-icon">📱</span>
+                <span class="pay-name">Перевод</span>
+                <span class="pay-desc">На карту</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="form-group full-width">
+            <div class="order-summary" id="orderSummary">
+              <div class="summary-title">📋 Сводка заказа</div>
+              <div class="summary-rows" id="summaryRows">
+                <div class="summary-row">
+                  <span>Пакет:</span>
+                  <span id="sumPackage">—</span>
+                </div>
+                <div class="summary-row">
+                  <span>Продолжительность:</span>
+                  <span id="sumDuration">—</span>
+                </div>
+                <div class="summary-row">
+                  <span>Доставка:</span>
+                  <span id="sumZone">—</span>
+                </div>
+                <div class="summary-row">
+                  <span>Способ оплаты:</span>
+                  <span id="sumPayment">—</span>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-row total-row">
+                  <span>💰 Итоговая стоимость:</span>
+                  <span id="sumTotal" class="total-price">По запросу</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group full-width">
+            <label for="clientEmail">Ваш email (для подтверждения заказа)</label>
+            <input type="email" id="clientEmail" name="clientEmail" placeholder="your@email.com" />
+          </div>
+
+          <!-- Agree -->
+          <div class="form-group full-width">
+            <label class="agree-label">
+              <input type="checkbox" id="agreeTerms" name="agreeTerms" />
+              <span class="agree-text">Я согласен(а) с условиями обработки персональных данных и правилами программы GoDiet</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep(5)"><span>←</span> Назад</button>
+          <button class="btn-submit" id="submitBtn" onclick="submitForm()">
+            <span class="submit-icon">🚀</span>
+            Отправить Заявку
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== SUCCESS ===== -->
+      <div class="step-card success-card" id="step-success" style="display:none;">
+        <div class="success-animation">
+          <div class="success-circle">
+            <span class="success-check">✓</span>
+          </div>
+          <div class="success-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring ring-3"></div>
+          </div>
+        </div>
+        <h2 class="success-title">Заявка отправлена! 🎉</h2>
+        <p class="success-msg">Спасибо! Ваша заявка успешно получена. Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа.</p>
+        <div class="success-details" id="successDetails"></div>
+        <button class="btn-primary" onclick="resetSurvey()">Заполнить снова</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
